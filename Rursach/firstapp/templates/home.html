@@ -1,0 +1,40 @@
+{% extends 'layout.html'%}
+
+{% block content%}
+ <div class="container" >
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 photoProfil">
+      <img  src="https://akbcenter.by/assets/images/default-avatar.png" width="200" height="222">
+    </div>
+        {% for info in information %}
+        {% for task in tasks %}
+            {% include 'string.html' %}
+        {% endfor %}
+
+
+        {% endfor %}
+
+      <button>Добавить договор</button>
+    <div class="documents">
+        <table border="2" width="100%" cellpadding="5" rules="rows" >
+           <tr >
+                <th>Номер</th>
+                <th>Имя_Агента</th>
+                <th>Вид_страхования</th>
+                <th>Сумма_Страхования</th>
+                <th>Период</th>
+           </tr>
+           <tr >
+               <td>1</td>
+               <td>2</td>
+               <td>3</td>
+               <td>4</td>
+               <td>5</td>
+              <td><a  href="#"><button >123</button></a></td>
+            </tr>
+        </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

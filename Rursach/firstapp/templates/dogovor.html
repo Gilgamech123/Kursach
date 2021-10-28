@@ -1,0 +1,42 @@
+{% extends 'layout.html'%}
+
+{% block content%}
+ <div class="">
+     <h1>Формирование договора </h1>
+  <form method="post" action="">
+    <div>
+      <label for="name">Имя</label>
+      <input class="inName" type="text" name="name" required>
+    </div>
+     <div>
+      <label for="surname">Фамилия</label>
+      <input class="inSurname" type="text" name="surname" required>
+    </div>
+      <div>
+      <label for="patronymic">Отчество</label>
+      <input class="inPatronymic" type="text" name="patronymic" required>
+    </div>
+    <div>
+      <label >Страховой агент:</label>
+      <select class="choose">
+          <option disabled>Выберите героя</option>
+          <option >Иванов И.И.</option>
+          <option >Петров П.П.</option>
+      </select>
+    </div>
+        <div>
+              <label for="pasport_data">Введите номер и серию паспорта:</label>
+              <input class="DPasport" type="number" size="12" name="numpasport" >
+              <label for="snils">Введите снилс:</label>
+              <input class="DSnils" type="number" size="12" name="numsnils" >
+        </div>
+      <label >Вид страхования:</label>
+      <select class="choose1">
+          <option disabled>Выберите вид</option>
+          <option >Смерть</option>
+          <option >Травма</option>
+      </select>
+    <button type="submit">Оформить</button>
+  </form>
+</div>
+{% endblock %}
