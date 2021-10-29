@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.contrib.auth.models import *
+from .forms import  *
 
 
 class PageLogin(View):
@@ -24,17 +25,19 @@ class PageLogin(View):
             }
             return render(request, 'login.html', context=context)
         else:
+
             request.session["id_user"] = users[0].id
             return HttpResponseRedirect('home.html')
 
 class PageHome(View):
     def get(self, request):
-        tasks = get_material(request.session["id_user"])
-        information = get_info(request.session["id_user"])
-        context = {
-            'tasks': tasks,
-            'information': information
-        }
+        if 'id_user' in request.session.keys():
+            tasks = get_material(request.session['id_user'])
+            information = get_info(request.session['id_user'])
+            context = {
+                'tasks': tasks,
+                'information': information
+            }
         return render(request, 'home.html', context=context)
 
 
@@ -52,27 +55,20 @@ class PageRegistration(View):
         context = {}
         return render(request, 'registration.html', context=context)
 
-    def dispatch(self, request, *args, **kwargs):
-        if request.method == 'POST':
-            username = request.POST.get('username')
-            email = request.POST.get('email')
-            password = request.POST.get('password')
-            password2 = request.POST.get('repeat_password')
-            pasportData = request.POST.get('pasport_data')
-            snils = request.POST.get('numsnils')
-
-            if password == password2:
-                user = User.objects.create_user(username, email, password)
-
-                customer = Customer.objeact.create(user_id=user,passport_data =pasportData, snills = snils)
-                context = {
-
-                    'customer': customer
-                }
-                return redirect(request, 'login.html', context=context)
-
-        return render(request, 'registration.html')
-
+    def post(self, request):
+        if 'registration' in request.POST:
+            if request.method == 'POST':
+                reg=LoginForm(request.POST)
+                if reg.is_valid():
+                    reg.save()
+                    return HttpResponseRedirect('login.html')
+                else:
+                    error="Ошибка формы"
+            context = {
+                'reg':reg,
+                'error':error
+            }
+        return render(request, 'registration.html', context=context)
 
 
 
